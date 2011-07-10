@@ -1,0 +1,76 @@
+body {
+  line-height: 2em;
+  font-family: 'Merriweather', serif;
+  font-size: 24px;
+}
+
+ol {
+  list-style: none;
+}
+
+ul {
+  list-style: square outside;
+  margin-left: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Yanone Kaffeesatz', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 48px;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-family: 'Yanone Kaffeesatz', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+}
+
+pre, code {
+  font-family: Courier, Courier New;
+}
+
+pre {
+  border: 1px solid #c0c0c0;
+  padding: 10px;
+  line-height: 1.5em;
+  background-color: #eeeeee;
+}
+
+div.slide {
+  -webkit-box-shadow: 0 0 50px #c0c0c0;
+  -moz-box-shadow: 0 0 50px #c0c0c0;
+  box-shadow: 0 0 50px #c0c0c0;
+
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+
+  height: 700px;
+  width: 900px;
+  padding: 50px;
+  position: relative;
+}
+
+div.coverslide {
+  text-align: center;
+}
+
+div.coverslide h1 {
+  margin-top: 300px;
+}
+
+div.inactiveslide {
+  opacity: 0.1;
+}
+
+div.activeslide {
+  opacity: 1;
+}
