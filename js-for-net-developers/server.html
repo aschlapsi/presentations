@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tools & Libraries - JavaScript für .NET-Entwickler</title>
+  <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light&v1' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Merriweather&v2' rel='stylesheet' type='text/css'>
+  <script src="lib/jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script src="lib/fathom.min.js" type="text/javascript"></script>
+  <script src="evaljs.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      $("#presentation").fathom();
+      $("pre").evaljs().trimContent();
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="presentation">
+    <div class="slide coverslide">
+      <h1>Server-seitige JavaScript-Programmierung</h1>
+      <div class="footer">
+        <p>12. Juli 2011</p>
+        <p>Andreas Schlapsi - <a href="http://www.andreas-schlapsi.at">http://www.andreas-schlapsi.at</a></p>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h1>Frameworks</h1>
+      <ul>
+        <li>Node.js - <a href="http://nodejs.org">nodejs.org</a></li>
+        <li>RingoJS - <a href="http://ringojs.org">http://ringojs.org</a></li>
+        <li>Narwhal - <a href="http://narwhaljs.org">http://narwhaljs.org</a></li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Node.js</h1>
+      <ul>
+        <li>Zur Zeit sehr populär</li>
+        <li>Bereits ein eigenes Ökosystem entwickelt</li>
+        <li>Microsoft unterstützt Portierung auf Windows</li>
+        <li>Eigener Package-Manager (wie Nuget, Rubygems, ...): Node Package Manager - npm (<a href="http://npmjs.org">http://npmjs.org</a>)</li>
+        <li>Verwendet V8 von Google als JavaScript-Engine</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>RingoJS</h1>
+      <ul>
+        <li>Nachfolger von Helma</li>
+        <li>Orf.at-Network teilweise mit Helma realisiert</li>
+        <li>Verwendet Rhino von Mozilla als JavaScript-Engine</li>
+        <li>Rhino ist in Java entwickelt</li>
+        <li>Von Helma/RingoJS kann man auf Java-Code zugreifen</li>
+      </ul>
+    </div>
+
+    <div class="slide single">
+      <h1>Node.js-Beispiele auf Linux-Server</h1>
+    </div>
+  </div>
+</body>
+</html>

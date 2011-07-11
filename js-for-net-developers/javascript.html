@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript für .NET-Entwickler</title>
+  <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light&v1' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Merriweather&v2' rel='stylesheet' type='text/css'>
+  <script src="lib/jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script src="lib/fathom.min.js" type="text/javascript"></script>
+  <script src="evaljs.js" type="text/javascript"></script>
+  <script src="consolejs.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      $("#presentation").fathom();
+      $("pre").evaljs().trimContent();
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="presentation">
+    <div class="slide single">
+      <h1>Was heißt das jetzt konkret?</h1>
+    </div>
+
+    <div class="slide">
+      <h1>Primitive Types</h1>
+      <ul>
+        <li>Boolean: <code>true</code>, <code>false</code></li>
+        <li>String: <code>"This is a string."</code>, <code>'This too.'</code>, <code>""</code></li>
+        <li>Numbers: <code>42</code>, <code>42.0</code>, <code>4.2</code>, <code>2.6e17</code></li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>String-Literale</h1>
+      <ul>
+        <li>Unicode characters</li>
+        <li>Umgeben von <code>"</code> oder <code>'</code></li>
+        <li>Escape-Sequences: \n, \t, ...</li>
+        <li><code>"I can't do this."</code></li>
+        <li><code>'Er sagte: "Ich kann das nicht tun."'</code></li>
+        <li><code>'I can\'t do this.'</code></li>
+        <li><code>"Er sagte: \"Ich kann das nicht tun.\""</code></li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Number</h1>
+      <ul>
+        <li>Number repräsentiert sowohl <code>int</code> als auch <code>float</code>.</li>
+        <li>64-Bit große Fließkommazahl</li>
+      </ul>
+      <pre>
+        console.log(typeof 4);
+        console.log(typeof 4.0);
+        console.log(typeof "4.0");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Konvertieren eines Strings nach Number</h1>
+      <pre>
+        console.log(parseInt("10"));
+        console.log(parseInt("9"));
+        console.log(parseInt("010"));
+        console.log(parseInt("09"));
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Konvertieren eines Strings nach Number mit Radix</h1>
+      <pre>
+        console.log(parseInt("10", 10));
+        console.log(parseInt("9", 10));
+        console.log(parseInt("010", 10));
+        console.log(parseInt("09", 10));
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Type Coercion</h1>
+      <pre>
+        console.log(4 + 2);
+        console.log("4" + "2");
+        console.log("4" + 2);
+        console.log(4 + "2");
+        console.log(24 + " hours");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Vergleichsoperatoren</h1>
+      <pre>
+        console.log(42 == 42);
+        console.log(42 != "hello");
+        console.log(21 &lt;= 42);
+        console.log(21 &gt; 42);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Vergleichsoperatoren (Strings)</h1>
+      <pre>
+        console.log("hello" == "hello");
+        console.log("hi" != "hello");
+        console.log("c#" &lt;= "javascript");
+        console.log("java" &gt; "c++");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Gleichheitsoperatoren</h1>
+      <pre>
+        console.log("2" == 2);
+        console.log("42" != 42);
+        console.log("24" == 24);
+        console.log("0" != 0);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Identitätsoperatoren</h1>
+      <pre>
+        console.log("2" === 2);
+        console.log("42" !== 42);
+        console.log("24" === 24);
+        console.log("0" !== 0);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Falsey</h1>
+      <pre>
+        console.log(!!false);
+        console.log(!!null);
+        console.log(!!undefined);
+        console.log(!!0);
+        console.log(!!-0);
+        console.log(!!NaN);
+        console.log(!!"");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Falsey</h1>
+      Wenn folgende Werte in einem Bool-Kontext verwendet werden, z.B. als
+      Bedingung in einem <code>if</code>-Statement, ergeben Sie <code>false</code>:
+      <ul>
+        <li><code>false</code>, <code>null</code>, <code>undefined</code></li>
+        <li><code>0</code>, <code>-0</code></li>
+        <li><code>NaN</code>, <code>""</code></li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Truthy</h1>
+      <p>Alle anderen Werte ergeben <code>true</code>:</p>
+      <pre>
+        console.log(!!true);
+        console.log(!!{});
+        console.log(!![]);
+        console.log(!!42);
+        console.log(!!-56);
+        console.log(!!"Hello, world!");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Zusammenfassung primitive Datentypen</h1>
+      <ul>
+        <li>Boolean, String, Number</li>
+        <li>Number bildet sowohl <code>int</code>, als auch <code>float</code> ab.</li>
+        <li>JavaScript ist nicht nur dynamisch, sondern auch schwach typisiert.</li>
+        <li>Die Gleichheitsoperatoren vergleichen nach einer automatischen Typumwandlung.</li>
+        <li>Die Identitätsoperatoren berücksichtigen für den Vergleich auch den Typ.</li>
+        <li>Es gibt 7 Werte in JavaScript, die in einem Boolschen Kontext <code>false</code> ergeben.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Best Practices für primitive Datentypen</h1>
+      <ul>
+        <li><code>parseInt</code> immer mit Radix aufrufen.</li>
+        <li>Bei Vergleichen nicht den Gleichheitsoperator (<code>==</code>) verwenden, sondern den Identitätsoperator (<code>===</code>).</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Objects</h1>
+      <pre>
+        var person = {
+            name: "Max Mustermann",
+            "address": {
+                street: "Musterstraße",
+                number: "42",
+                zip: "1010",
+                city: "Wien",
+                country: "Österreich"
+            },
+            "customer-id": 424521456,
+            age: 42
+        };
+        console.log(person);
+        console.log(person.address.city);
+        console.log(person["customer-id"]);
+        console.log(person["name"]);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Objekte in JavaScript...</h1>
+      <ul>
+        <li>Alles außer primitive Datentypen in JavaScript ist ein Objekt.</li>
+        <li>Sie beinhalten Eigenschaften (Key/Value-Pairs).</li>
+        <li>Sie sind von außen veränderbar.</li>
+        <li>Sie sind vergleichbar mit <code>System.Collections.HashTable</code>.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Iterieren über alle Eigenschaften eines Objekts</h1>
+      <pre>
+        var person = {
+            name: "Max Mustermann",
+            employer: "Musterfirma AG",
+            "customer-id": 424521456,
+            age: 42
+        };
+        
+        for (var propertyName in person) {
+          console.log(propertyName + ": " + person[propertyName]);
+        }
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Arrays</h1>
+      <pre>
+        var a1 = new Array();
+        a1[0] = 42;
+        a1[1] = "Hello, world!";
+        var a2 = [42, "Hello, world!"];
+        console.log(a1);
+        console.log(a1.length);
+        console.log(a2);
+        console.log(a2["length"]);
+      </pre>
+      <pre>
+        var a3 = [0, 1, 2, 3];
+        a3[100] = 42;
+        console.log(a3);
+        console.log(a3.length);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Arrays - Vorsicht mit for .. in</h1>
+      <pre>
+        var a = [21, 42, 84, 168];
+        a.name = "Karli";
+
+        for (var key in a) {
+          console.log(key + ": " + a[key]);
+        }
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Arrays - Daher lieber mit for</h1>
+      <pre>
+        var a = [21, 42, 84, 168];
+        a.name = "Karli";
+
+        for (var i = 0; i &lt; a.length; i++) {
+          console.log(i + ": " + a[i]);
+        }
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen</h1>
+      <pre>
+        function sayHello(name) {
+          console.log("Hello, " + name);
+        }
+
+        var sayHi = function(name) {
+          console.log("Hi, " + name);
+        }
+
+        sayHello("JavaScript");
+        sayHi(".NET");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen sind Objekte</h1>
+      <pre>
+        function sayHello(name) {
+          console.log("Hello, " + name);
+        }
+        
+        sayHello.to = "Franzi";
+
+        console.log(sayHello.to);
+        sayHello(sayHello.to);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen als Methoden</h1>
+      <pre>
+        var person = {
+          name: "Franzi",
+          age: 42,
+          greet: function() {
+            console.log("Hello, " + this.name);
+          },
+          getAgeIn5Years: function() {
+            return this.age + 5;
+          }
+        };
+
+        person.greet();
+        console.log(person.getAgeIn5Years());
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Was passiert denn da?</h1>
+      <pre>
+        var person1 = {
+              name: "Franzi",
+              greet: function() {
+                console.log("Hello, " + this.name);
+              }
+            },
+            person2 = { name: "Karli", age: 32 };
+
+        person1.greet();
+        person2.greet = person1.greet;
+        person2.greet();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen und ihr Kontext - call und apply</h1>
+      <pre>
+        var person = { name: "Franzi", age: 42 };
+
+        function greet(greeting, name) {
+          var introduction = greeting + ", " + name + "!",
+              sentence = this.name + " is " + this.age + " years old.";
+
+          console.log(introduction + " " + sentence);
+        }
+
+        greet.apply(person, ["Hello", "world"]);
+        greet.call(person, "Hello", "world");
+        
+        person.greet = greet;
+        person.greet("Hello", "world");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen und ihr Kontext - Vorsicht!</h1>
+      <pre>
+        function greet(greeting, name) {
+          var introduction = greeting + ", " + name + "!",
+              sentence = this.name + " is " + this.age + " years old.";
+
+          console.log(introduction + " " + sentence);
+        }
+
+        greet("Hello", "world");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen und ihr Kontext - Vorsicht!</h1>
+      <pre>
+        function func() {
+          console.log(this);
+        }
+
+        func();
+      </pre>
+      <pre>
+        function func() {
+          this.something = "Hello, world!";
+        }
+
+        func();
+        console.log(something);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Spaß mit Funktionsargumenten</h1>
+      <pre>
+        function log(item1, item2) {
+          console.log(item1 + ", " + item2);
+        }
+
+        log("Hello", "world");
+        log("Hi");
+        log("Guten Tag", ".NET", "Welt");
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Das Arguments-Objekt</h1>
+      <pre>
+        function log() {
+          var message = "", i;
+
+          for (i = 0; i &lt; arguments.length; i++) {
+            if (i &gt; 0) {
+              message += ", ";
+            }
+            message += arguments[i];
+          }
+
+          console.log(message);
+        }
+        log("Hello", "world");
+        log("Hi");
+        log("Guten Tag", ".NET", "Welt");
+      </pre>
+      <strong><code>arguments</code> kennt keine Array-Methoden! ("Array-like object")</strong>
+    </div>
+
+    <div class="slide">
+      <h1>Funktionen aus Bibliotheken</h1>
+      <pre>
+        $(".slide h1").each(function(index, element) {
+          console.log(index + ": " + $(this).text());
+        });
+      </pre>
+      <pre>
+        $(".slide h1").each(function(index, element) {
+          console.log(index + ": " + $(element).text());
+        });
+      </pre>
+      <p>Woher weiß man, worauf <code>this</code> zeigt und welche Parameter
+      übergeben werden?</p>
+      <p>=&gt; aus der <a href="http://api.jquery.com/each/">Dokumentation</a>
+    </div>
+  </div>
+</body>
+</html>

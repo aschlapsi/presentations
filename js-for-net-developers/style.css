@@ -62,11 +62,47 @@ h2 {
   margin-top: 1.5em;
 }
 
-pre, code {
+pre, code, #console {
   font-family: Courier, Courier New;
 }
 
+#console {
+  position: fixed;
+  width: 600px;
+  height: 150px;
+  top: 10px;
+  left: 10px;
+  border 1px solid #a0a0a0;
+  line-height: 1.1em;
+  background-color: #ffffff;
+  z-index: 255;
+
+  -webkit-box-shadow: 0 0 10px #a0a0a0;
+  -moz-box-shadow: 0 0 10px #a0a0a0;
+  box-shadow: 0 0 10px #a0a0a0;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#console .consolePanel, #console .consoleOutput {
+  padding: 10px;
+}
+
+#console .consolePanel {
+  font-family: Courier, Courier New;
+  color: #ffffff;
+  padding-bottom: 0;
+  border-bottom: 1px solid #c0c0c0;
+}
+
+#console .consoleOutput {
+  padding-top: 0;
+}
+
 pre {
+  margin-top: 10px;
   border: 1px solid #c0c0c0;
   padding: 10px;
   line-height: 1.5em;

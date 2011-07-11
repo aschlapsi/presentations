@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript für .NET-Entwickler</title>
+  <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light&v1' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Merriweather&v2' rel='stylesheet' type='text/css'>
+  <script src="lib/jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script src="lib/fathom.min.js" type="text/javascript"></script>
+  <script src="evaljs.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      $("#presentation").fathom();
+      $("pre").evaljs().trimContent();
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="presentation">
+    <div class="slide">
+      <h1>Warum sollte ich mir JavaScript überhaupt antun?</h1>
+      <ul class="emphasize">
+        <li>JavaScript ist die Sprache des Web.</li>
+        <li>JavaScript bietet vielseitige Anwendungsmöglichkeiten.</li>
+        <li>JavaScript hat interessante Eigenschaften und Konzepte.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>JavaScript ist die Sprache des Web.</h1>
+      <ul>
+        <li>1995 von Brendan Eich (Netscape) als <em>LiveScript</em> entwickelt.</li>
+        <li>Ursprüngliches Ziel: Validierung von Formulareingaben</li>
+        <li>Kooperation mit Sun Microsystems: Interaktion mit Java-Applets, Umbenennung in <em>JavaScript</em></li>
+        <li>1997 von ECMA standardisiert: <em>ECMAScript</em></li>
+      </ul>
+      <h2>Aktuelle Versionen:</h2>
+      <table>
+        <tr>
+          <th>JavaScript</th>
+          <th>ECMAScript</th>
+          <th>Browserunterstützung</th>
+        </tr>
+        <tr>
+          <td>1.5</td>
+          <td>3</td>
+          <td>Netscape Navigator 6.0, IE 5.5 - 8, Firefox 1, Opera 6 - 11, Safari 3 - 5, Chrome 1 - 10</td>
+        </tr>
+        <tr>
+          <td>1.8.5</td>
+          <td>5</td>
+          <td>Mozilla Firefox 4, IE 9</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="slide">
+      <h1>Anwendungsmöglichkeiten</h1>
+      <ul>
+        <li>Client-seitige Webprogrammierung (Browser)</li>
+        <li>Server-seitige Webprogrammierung
+          <ul>
+            <li>Node.js - <a href="http://nodejs.org">http://nodejs.org</a></li>
+            <li>RingoJS - <a href="http://ringojs.org">http://ringojs.org</a></li>
+          </ul></li>
+        <li>Smartphone-Anwendungen
+          <ul>
+            <li>Mobile Web Apps</li>
+            <li>Native Apps
+              <ul>
+                <li>PhoneGap - <a href="http://www.phonegap.com">http://www.phonegap.com</a></li>
+                <li>Titanium Appcelerator - <a href="http://www.appcelerator.com">http://www.appcelerator.com</a></li>
+              </ul></li>
+          </ul></li>
+        <li>Browser-Erweiterungen: Firefox, Chrome, Safari</li>
+        <li>Windows: Scripting Host, Windows Gadgets, Windows 8?</li>
+        <li>In eigene Programme einbetten: <a href="http://ironjs.wordpress.com/">IronJS</a>, <a href="http://jurassic.codeplex.com">Jurassic</a>, <a href="http://www.mozilla.org/rhino">Rhino</a>, V8
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>JavaScript ist interessant</h1>
+      <ul>
+        <li>Einflüsse von: C, Self, Scheme, Perl, Python, Java</li>
+        <li>Dynamisch und schwach typisiert</li>
+        <li>Objekt-orientiert, aber klassenlos: Vererbung via Prototypen</li>
+        <li>Unterstützt mehrere Programmierparadigmen:
+          <ul>
+            <li>prozedural</li>
+            <li>objekt-orientiert</li>
+            <li>funktional: first-class functions, nested functions, closures</li>
+          </ul>
+        </li>
+        <li>Prototyp-basiert: Prototypen, Funktionen als Objektconstructor, Funktionen als Methoden</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

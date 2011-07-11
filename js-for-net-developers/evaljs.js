@@ -1,21 +1,5 @@
-(function($, console) {
-  var console = console || { log: function() {} },
-      oldLog = console.log;
-
-  function redirectOutput(output) {
-    return function(obj) {
-      output.append(obj.toString());
-      oldLog.call(console, obj);
-    }
-  }
-
+(function($, undefined) {
   function executeCode(evt) {
-    var output = $(this).next('.codeoutput');
-
-    if (output) {
-      console.log = redirectOutput(output);
-    }
-
     try {
       eval($(this).data('source').replace("&gt;", ">").replace("&lt;", "<"));
     } catch (error) {
@@ -28,7 +12,7 @@
 
     return this.html(function(idx, content) {
       $(this)
-          .before('<a class="eval">Run</a>')
+          .before('<a class="eval" href="#">Run</a>')
           .prev()
           .data('source', content);
     });
@@ -45,4 +29,4 @@
       return $.trim(content);
     });
   }
-})(jQuery, console);
+})(jQuery);

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript für .NET-Entwickler</title>
+  <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:light&v1' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Merriweather&v2' rel='stylesheet' type='text/css'>
+  <script src="lib/jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script src="lib/fathom.min.js" type="text/javascript"></script>
+  <script src="lib/coffee-script.js" type="text/javascript"></script>
+  <script src="evalcoffee.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      $("#presentation").fathom();
+      $("pre.coffee").evalcoffee().trimContent();
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="presentation">
+    <div class="slide coverslide">
+      <h1>CoffeeScript für .NET-Entwickler</h1>
+      <div class="footer">
+        <p>12. Juli 2011</p>
+        <p>Andreas Schlapsi - <a href="http://www.andreas-schlapsi.at">http://www.andreas-schlapsi.at</a></p>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h1>Was ist CoffeeScript?</h1>
+      <ul>
+        <li>CoffeeScript-Quellcode wird in JavaScript-Code übersetzt</li>
+        <li>CoffeeScript exponiert nur die "guten Teile" von JavaScript</li>
+        <li>Aber: Es ist bloß JavaScript. ("The Golden Rule of CoffeeScript")</li>
+        <li>CoffeeScript-Code kann ohne Umwege JavaScript-Libraries verwenden</li>
+        <li>JavaScript-Code kann ohne Umwege CoffeeScript-Libraries verwenden</li>
+        <li>Übersetzter JavaScript-Code läuft auf allen JavaScript-Implementierungen
+          <ul>
+            <li>Browser</li>
+            <li>am Server: Node.js, RingoJS, ...</li>
+            <li>am Handy: PhoneGap, Titanium Appcelerator, ...</li>
+            <li>...</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Erstes Beispiel</h1>
+      <pre class="coffee">
+        sayHello = (name) -&gt; console.log "Hello, " + name
+
+        sayHello "CoffeeScript"
+      </pre>
+      JavaScript:
+      <pre class="compiled-js"></pre>
+    </div>
+ 
+    <div class="slide">
+      <h1>Objekte und Arrays</h1>
+      <pre class="coffee">
+        a = ["hello", 42, "world"]
+        b = [0..100]
+        c =
+          name: 'Karli'
+          age: 34
+
+        showAge = (person) -&gt;
+            console.log "#{person.name} is #{person.age} years old."
+
+        console.log a[1]
+        console.log x for x in b
+        showAge c
+      </pre>
+      JavaScript:
+      <pre class="compiled-js"></pre>
+    </div>
+ 
+    <div class="slide">
+      <h1>List Comprehensions</h1>
+      <pre class="coffee">
+        numbers = [1..100]
+        isEven = (num) -&gt; (num % 2) == 0
+        evenNumbers = (n for n in numbers when isEven n)
+        console.log n for n in evenNumbers
+        console.log n for n in numbers when isEven n
+      </pre>
+      JavaScript:
+      <pre class="compiled-js"></pre>
+    </div>
+ 
+    <div class="slide">
+      <h1>Array-Slicing</h1>
+      <pre class="coffee">
+        numbers = [1..100]
+        console.log n for n in numbers[4..12]
+      </pre>
+      JavaScript:
+      <pre class="compiled-js"></pre>
+    </div>
+ 
+    <div class="slide">
+      <h1>Klassen</h1>
+      <p>
+        <a href="http://jashkenas.github.com/coffee-script/#classes">zur CoffeeScript-Seite</a>
+      </p>
+    </div>
+
+    <div class="slide">
+      <h1>CoffeeScript und jQuery</h1>
+      <pre class="coffee">
+        $(".slide h1").each (index, element) -&gt;
+          console.log "#{index + 1}: #{$(element).text()}"
+      </pre>
+      JavaScript:
+      <pre class="compiled-js"></pre>
+    </div>
+  </div>
+</body>
+</html>
