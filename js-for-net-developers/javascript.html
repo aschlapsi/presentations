@@ -20,8 +20,12 @@
 </head>
 <body>
   <div id="presentation">
-    <div class="slide single">
-      <h1>Was heißt das jetzt konkret?</h1>
+    <div class="slide coverslide">
+      <h1>JavaScript - die Programmiersprache</h1>
+      <div class="footer">
+        <p>12. Juli 2011</p>
+        <p>Andreas Schlapsi - <a href="http://www.andreas-schlapsi.at">http://www.andreas-schlapsi.at</a></p>
+      </div>
     </div>
 
     <div class="slide">
@@ -448,6 +452,115 @@
       <p>Woher weiß man, worauf <code>this</code> zeigt und welche Parameter
       übergeben werden?</p>
       <p>=&gt; aus der <a href="http://api.jquery.com/each/">Dokumentation</a>
+    </div>
+
+    <div class="slide">
+      <h1>Nur Funktionen begrenzen den Gültigkeitsbereich von Variablen</h1>
+      <pre>
+        var globalVar = 42;
+
+        function f(x) {
+          var n = 34, globalVar = 67;
+
+          console.log(n);
+          console.log(globalVar);
+        }
+
+        f(2);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Was passiert hier wohl?</h1>
+      <pre>
+        var n = 42;
+
+        function f() {
+          console.log(n);
+
+          var n = 34;
+
+          console.log(n);
+        }
+
+        f();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Variable Hoisting</h1>
+      <ul>
+        <li><strong>Variablen immer mit <code>var</code> am Beginn einer Funktion deklarieren!</strong></li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h1>Constructor Functions</h1>
+      <pre>
+        function Animal(name) {
+          this.name = name;
+        }
+
+        var pet = new Animal("Waldi");
+        console.log(pet.name);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1><code>this</code> schlägt zurück!</h1>
+      <pre>
+        function Animal(name) {
+          this.name = name;
+        }
+
+        var pet = Animal("Waldi");
+        console.log(name);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Namenskonvention</h1>
+      <pre>
+        function Animal(name) {
+          this.name = name;
+        }
+
+        var pet = new Animal("Murli");
+        console.log(pet.name);
+        console.log(name);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1><code>that</code> statt </code>this</code></h1>
+      <pre>
+        function Animal(name) {
+          var that = {};
+          that.name = name;
+          return that;
+        }
+
+        var pet = Animal("Murli");
+        console.log(pet.name);
+        console.log(name);
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Self-invoking Constructor</h1>
+      <pre>
+        function Animal(name) {
+          if (!(this instanceof Animal)) {
+            return new Animal(name);
+          }
+
+          this.name = name;
+        }
+
+        var pet = Animal("Murli");
+        console.log(pet.name);
+        console.log(name);
+      </pre>
     </div>
   </div>
 </body>
