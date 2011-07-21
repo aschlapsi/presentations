@@ -172,26 +172,6 @@
     </div>
 
     <div class="slide">
-      <h1>Zusammenfassung primitive Datentypen</h1>
-      <ul>
-        <li>Boolean, String, Number</li>
-        <li>Number bildet sowohl <code>int</code>, als auch <code>float</code> ab.</li>
-        <li>JavaScript ist nicht nur dynamisch, sondern auch schwach typisiert.</li>
-        <li>Die Gleichheitsoperatoren vergleichen nach einer automatischen Typumwandlung.</li>
-        <li>Die Identitätsoperatoren berücksichtigen für den Vergleich auch den Typ.</li>
-        <li>Es gibt 7 Werte in JavaScript, die in einem Boolschen Kontext <code>false</code> ergeben.</li>
-      </ul>
-    </div>
-
-    <div class="slide">
-      <h1>Best Practices für primitive Datentypen</h1>
-      <ul>
-        <li><code>parseInt</code> immer mit Radix aufrufen.</li>
-        <li>Bei Vergleichen nicht den Gleichheitsoperator (<code>==</code>) verwenden, sondern den Identitätsoperator (<code>===</code>).</li>
-      </ul>
-    </div>
-
-    <div class="slide">
       <h1>Objects</h1>
       <pre>
         var person = {
@@ -440,7 +420,7 @@
     <div class="slide">
       <h1>Funktionen aus Bibliotheken</h1>
       <pre>
-        $(".slide h1").each(function(index, element) {
+        $(".slide h1").each(function(index) {
           console.log(index + ": " + $(this).text());
         });
       </pre>
@@ -467,6 +447,7 @@
         }
 
         f(2);
+        console.log(globalVar);
       </pre>
     </div>
 
@@ -515,6 +496,7 @@
 
         var pet = Animal("Waldi");
         console.log(name);
+        console.log(pet);
       </pre>
     </div>
 
@@ -561,6 +543,153 @@
         console.log(pet.name);
         console.log(name);
       </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Prototypes</h1>
+      <pre>
+        function Person(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+
+        var karli = new Person("Karli", 24);
+        
+        Person.prototype.profession = "Software Developer";
+
+        console.log(karli.profession);
+        console.log(karli.hasOwnProperty("profession"));
+        console.log(karli.hasOwnProperty("name"));
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Prototypes von eingebauten Objekten erweitern</h1>
+      <pre>
+        Array.prototype.showAll = function() {
+          var i;
+
+          for (i = 0; i &lt; this.length; i++) {
+            console.log(this[i]);
+          }
+        };
+
+        var a = [1, 2, 3, 4, 5, 42, 84];
+        a.showAll();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Vererbung mit Prototypes</h1>
+      <pre>
+        function Pet(name, species) {
+          this.name = name;
+          this.species = species;
+        }
+        Pet.prototype.greet = function() {
+          console.log("I'm " + this.name + ".");
+          console.log("I'm a " + this.species + ".");
+        }
+        function Dog(name) {
+          this.name = name;
+          this.species = "Dog";
+        }
+        Dog.prototype = new Pet();
+        Dog.prototype.constructor = Dog;
+        var dog = new Dog("Waldi");
+        dog.greet();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Vererbung mit Prototypes</h1>
+      <pre>
+        function Pet(name, species) {
+          this.name = name;
+          this.species = species;
+        }
+        Pet.prototype.greet = function() {
+          console.log("I'm " + this.name + ".");
+          console.log("I'm a " + this.species + ".");
+        }
+        function Dog(name) {
+          Pet.call(this, name, "Dog");
+        }
+        Dog.prototype = new Pet();
+        Dog.prototype.constructor = Dog;
+        var dog = new Dog("Waldi");
+        dog.greet();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Object.create</h1>
+      <p><strong>Nicht in allen Browsern verfügbar!</strong></p>
+      <pre>
+        var person = {
+          show: function() {
+            console.log(this.name);
+          }
+        };
+
+        var karli = Object.create(person);
+        karli.name = "Karli";
+
+        var franzi = Object.create(person);
+        franzi.name = "Franzi";
+
+        karli.show();
+        franzi.show();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Object.create</h1>
+      <p><strong>Nicht in allen Browsern verfügbar!</strong></p>
+      <pre>
+        var person = {
+          show: function() {
+            console.log(this.name);
+          }
+        };
+
+        var karli = Object.create(person, {name:{value: "Karli"}});
+        var franzi = Object.create(person, {name:{value: "Franzi"}});
+
+        karli.show();
+        franzi.show();
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Object.create</h1>
+      <pre>
+        if (!Object.create) {
+          Object.create = function(o) {
+            if (arguments.length &gt; 1) {
+              throw new Error("Object.create accepts one parameter.");
+            }
+            function F() {}
+            F.prototype = o;
+            return new F();
+          };
+        }
+      </pre>
+    </div>
+
+    <div class="slide">
+      <h1>Object.create</h1>
+      <ul>
+        <li>Feature aus ECMAScript 5</li>
+        <li>JavaScript 1.8.5 (Firefox 4)</li>
+        <li>Unterstützt von folgenden Browsern:
+          <ul>
+            <li>Internet Explorer 9</li>
+            <li>Firefox 4</li>
+            <li>Chrome 5</li>
+            <li>Safari 5</li>
+          </ul></li>
+      </ul>
     </div>
   </div>
 </body>
