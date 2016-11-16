@@ -1,0 +1,585 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<!-- <section data-markdown="example.md" data-separator="^\n\n\n" data-separator-vertical="^\n\n"></section> -->
+
+				<!-- Slides are separated by newline + three dashes + newline, vertical slides identical but two dashes -->
+				<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$" data-separator-notes="^Notes:" data-transition-speed="fast">
+					<script type="text/template">
+						# Real-World Unit Testing in Python
+
+						Notes:
+
+						- Who knows Python?
+						- Who does unit testing?
+						- Who does TDD?
+
+						---
+
+						# Review: Unit Testing and TDD
+
+						--
+
+						## Unit Testing
+
+						Notes:
+
+						- Software Testing Method
+						- Individual units of source code are tested
+						  - in procedural code: entire module, function or procedure
+						  - in OOP: class or individual method
+						  - => controversial issue
+						- written and run by software developers!
+
+						--
+
+						### Benefits
+
+						- Find problems early 				<!-- .element: class="fragment" -->
+						- Facilitates change (refactoring) 	<!-- .element: class="fragment" -->
+						- Simplifies integration 			<!-- .element: class="fragment" -->
+						- Documentation 					<!-- .element: class="fragment" -->
+						- Design (TDD) 						<!-- .element: class="fragment" -->
+
+						--
+
+						## TDD
+
+						--
+
+						### Red-Green-Refactor
+
+						<ol>
+							<li class="fragment">Write ***one*** test which fails ("Red")!</li>
+							<li class="fragment">Write ***just enough*** code to make the test pass ("Green")!</li>
+							<li class="fragment">Improve the design of the code ("Refactor")!</li>
+						</ol>
+
+						--
+
+						### Make it work! Make it clean! Make it fast!
+
+						--
+
+						### Benefits
+
+						- less debugging (at least on "greenfield" projects) <!-- .element: class="fragment" -->
+						- safety net for refactoring 						 <!-- .element: class="fragment" -->
+						- design (looser coupling) 							 <!-- .element: class="fragment" -->
+						- ability to take small steps when required 		 <!-- .element: class="fragment" -->
+						- more confidence in the code 						 <!-- .element: class="fragment" -->
+
+						---
+
+						# Python's unittest library
+
+						Notes:
+
+						- part of standard library
+						- recommended for Django tests
+
+						--
+
+						## Organizing Test Code
+
+						- `TestCase` class
+						- `TestSuite` class
+
+						--
+
+						## Test fixtures
+
+						- `setUp`, `tearDown`, and `cleanUp` methods
+						- `setUpClass` and `tearDownClass`
+
+						--
+
+						## Sample: FizzBuzz
+
+						Print the numbers from 1 to 100, but replace
+						- any number divisible by three by the word *fizz*
+						- any number divisible by fife by the word *buzz*
+						- any number divisible by three and by five by the word *fizzbuzz*
+
+						--
+
+						<pre><code data-trim data-noescape>
+						import unittest
+						from fizzbuzz import fizzbuzz
+
+						class FizzBuzzTests(unittest.TestCase):
+						    def test_that_number_1_returns_1(self):
+								self.assertEqual('1', fizzbuzz(1))
+
+						    def test_that_number_3_returns_fizz(self):
+								self.assertEqual('fizz', fizzbuzz(3))
+							
+							...
+						</code></pre> 
+
+						--
+
+						## Other features
+
+						- subtests
+						- skipping tests
+						- many different assertions
+						- test discovery: `load_tests` protocol
+
+						Notes:
+
+						- subtests: distinguishing test iterations (new in 3.4)
+						  - when some of tests differ only by some small differences, like parameters
+						- skipping tests: for example (new in 3.1)
+						- load_tests protocol: modules or packages can customize how tests are loaded (new in 3.2)
+
+						---
+
+						# Mocking in Python
+						## unittest.mock
+
+						--
+
+						- Since Python 3.3: part of standard library<br>
+						  (`import unittest.mock`)
+						- Older versions: package `mock` on PyPI<br>
+						  (`import mock`)
+
+						--
+
+						### Use Cases (examples)
+
+						- External dependencies (web services, file systems, ...)	<!-- .element: class="fragment" -->
+						- Time 					<!-- .element: class="fragment" -->
+						- Random numbers 		<!-- .element: class="fragment" -->
+
+						--
+
+						### Indirect test input
+
+						<img src="Indirect Input.png">
+
+						--
+
+						### Basic usage
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+						mock = Mock(return_value=3)
+						assert mock(1, 2, 3, key='value') == 3
+						</code></pre> 
+
+						--
+
+						### Indirect test output (Spy)
+
+						<img src="Indirect output-spy.png">
+
+						--
+
+						### Asserting that function was called
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+						mock = Mock(return_value=3)
+						mock(1, 2, 3, key='value')
+						mock.assert_called_with(1, 2, 3, key='value')
+						</code></pre> 
+
+						--
+
+						### Attributes are autogenerated mocks
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+						mock = Mock()
+						mock.the_answer_is(42)
+						mock.the_answer_is.assert_called_with(42)
+						mock.do_something.assert_called_with()   # raises AssertionError
+						</code></pre> 
+
+						--
+
+						### Mock methods of other classes
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+						thing = MyClass()
+						thing.method = Mock(return_value=3)
+						assert thing.method(1, 2, 3, key='value') == 3
+						mock.assert_called_with(1, 2, 3, key='value')
+						</code></pre>
+
+						--
+
+						### Side effects - Exceptions
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+						mock = Mock(side_effect=KeyError('foo'))
+						mock() 		# raises KeyError
+						</code></pre> 
+
+						--
+
+						### Side effects - Different return values
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+						mock = Mock()
+						mock.side_effect = [1, 2, 3]
+						assert mock() == 1
+						assert mock() == 2
+						assert mock() == 3
+						</code></pre> 
+
+						--
+
+						### Side effects - Using a function
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock
+
+						values = {'a': 1, 'b': 2, 'c': 3}
+						def side_effect(arg):
+							return values[arg]
+
+						mock = Mock(side_effect=side_effect)
+						assert mock('a') == 1
+						assert mock('b') == 2
+						assert mock('c') == 3
+						</code></pre>
+
+						--
+
+						### Side effects - Using DEFAULT in a function
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import Mock, DEFAULT
+
+						def side_effect(arg):
+							if arg == 42:
+								return 'The answer!'
+							return DEFAULT
+
+						mock = Mock(side_effect=side_effect, return_value=42)
+						assert mock(2) == 42
+						assert mock(41) == 42
+						assert mock(42) == 'The answer!'
+						</code></pre>
+
+						--
+
+						### MagicMock
+
+						- "Magic methods": `__str__`, `__iter__`, `__enter__`, ...
+						- Almost all of them can be mocked with `Mock`
+						- `MagicMock`: default implementations of most of the magic methods
+
+						--
+
+						### How to inject a test double into your code?
+
+						--
+
+						### `patch` as function decorator
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import patch
+
+						class SomeClass:
+							pass
+
+						@patch('__main__.SomeClass')
+						def function(normal_argument, mock_class):
+						    print(mock_class is SomeClass)
+						
+						function(None)
+						</code></pre>
+
+						--
+
+						### `patch` as class decorator
+
+						<pre><code data-trim data-noescape>
+						from unittest import TestCase
+						from unittest.mock import patch
+
+						class SomeClass:
+							pass
+
+						@patch('test.SomeClass')
+						class MyTests(TestCase):
+							def test_method(self, mock_class):
+								self.assertTrue(mock_class is SomeClass)
+						</code></pre>
+
+						--
+
+						### `patch` as context manager
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import patch
+
+						class Class:
+						    def method(self):
+							    pass
+						
+						with patch('__main__.Class') as MockClass:
+						    instance = MockClass.return_value
+							instance.method.return_value = 'spam'
+							assert Class() is instance
+							assert Class().method() == 'spam'
+						</code></pre>
+
+						--
+
+
+						### `patch` as function
+
+						<pre><code data-trim data-noescape>
+						from unittest.mock import patch, Mock
+
+						class SomeClass:
+							pass
+						
+						patcher = patch('__main__.SomeClass')
+						mocked_object = patcher.start()
+						print(mocked_object is SomeClass)	# 'True'
+						patcher.stop()
+						print(mocked_object is SomeClass)	# 'False'
+						</code></pre>
+
+						--
+
+						### Special patch variants
+
+						- `patch.object`
+						- `patch.dict`
+						- `patch.multiple`
+
+						--
+
+						### sentinel
+
+						The sentinel object provides a convenient way of providing unique objects for your tests.
+
+						--
+
+						<pre><code data-trim data-noescape>
+						from unittest import TestCase
+						from unittest.mock import sentinel, Mock
+
+						
+						class MyObject:
+							def __init__(self, other_obj)
+								self.other_obj = other_obj
+							
+							def do_something(self, a, b):
+								self.other_obj.call_something(b, a)
+
+
+						class MyTest(TestCase):
+							def test_something(self):
+								mymock = Mock()
+								myobj = MyObject(mymock)
+
+								myobj.do_something(sentinel.arg1, sentinel.arg2)
+
+								mymock.call_something.assert_called_once_with(
+									sentinel.arg2,
+									sentinel.arg1
+								)
+						</code></pre>
+
+						---
+
+						## Mocking in Practice
+
+						--
+
+						### Don't overuse stubs and mocks!
+
+						Notes:
+						Test behaviour! Do not test implementation!
+
+						--
+
+						Use stubs when your code gets a value from a source ***which you cannot control***!
+
+						- external services <!-- .element: class="fragment" -->
+						- random numbers 	<!-- .element: class="fragment" -->
+						- time or date 		<!-- .element: class="fragment" -->
+
+						--
+
+						Use mocks (or spies) when your code has a ***side effect*** which you ***cannot test otherwise***.
+
+						--
+
+						### Patching C libraries (like datetime)
+
+						--
+
+						<pre><code data-trim data-noescape>
+						from datetime import datetime
+						from unittest import TestCase, mock
+
+						class FakeDatetime(datetime):
+							def __new__(cls, *args, **kwargs):
+								return datetime.__new__(datetime, *args, **kwargs)
+						
+						@mock.patch('mymodule.datetime', FakeDatetime)
+						class MyTests(TestCase):
+							def setUp(self):
+								self.now = datetime.utcnow()
+								FakeDatetime.utcnow = classmethod(lambda cls: self.now)
+						</code></pre>
+
+						--
+
+						<pre><code data-trim data-noescape>
+						import datetime
+						import mymodule
+						from unittest import TestCase, mock
+						
+						class MyTests(TestCase):
+							def setUp(self):
+								datetime_patcher = mock.patch.object(
+									my_module.datetime, 'datetime',  
+									mock.Mock(wraps=datetime.datetime)
+								)
+								mocked_datetime = datetime_patcher.start()
+								self.today = datetime.datetime(2016, 10, 20)
+								mocked_datetime.today.return_value = self.today
+								self.addCleanup(datetime_patcher.stop)
+						</code></pre>
+
+						--
+
+						### Know where to patch
+
+						Notes:
+						
+						In Python: names point to objects, patching changes the object a name points to
+
+						Important: which name is imported into the namespace of a module?
+
+						--
+
+						in your production code:
+						<pre><code data-trim data-noescape>
+						import requests
+						...
+						        response = requests.get(api_url)
+						...
+						</code></pre>
+
+						in your unit test:
+						<pre><code data-trim data-noescape>
+						@patch('requests.get')
+						class UpdateDataTestCase(flask_testing.TestCase):
+							...
+							def setUp(self):
+								...
+								self.responses = [
+									FakeResponse(200, [{'year': 2016, 'month': 8, 'submissions': 42}]),
+									FakeResponse(500, []),
+									FakeResponse(200, [{'year': 2016, 'month': 8, 'submissions': 21}]),
+								]
+							...
+							def test_calls_stats_for_sites(self, requests_get):
+								requests_get.side_effect = self.responses
+								...
+						</code></pre>
+
+						--
+
+						in your production code:
+						<pre><code data-trim data-noescape>
+						from requests import get
+						...
+						        response = get(api_url)
+						...
+						</code></pre>
+
+						in your unit test:
+						<pre><code data-trim data-noescape>
+						@patch('my.project.restapi.get')
+						class UpdateDataTestCase(flask_testing.TestCase):
+							...
+							def setUp(self):
+								...
+								self.responses = [
+									FakeResponse(200, [{'year': 2016, 'month': 8, 'submissions': 42}]),
+									FakeResponse(500, []),
+									FakeResponse(200, [{'year': 2016, 'month': 8, 'submissions': 21}]),
+								]
+							...
+							def test_calls_stats_for_sites(self, requests_get):
+								requests_get.side_effect = self.responses
+								...
+						</code></pre>
+
+						---
+
+						# Summary
+
+						- Write unit tests! 			<!-- .element: class="fragment" -->
+						- Use TDD! 						<!-- .element: class="fragment" -->
+							1. Write the test first! 	<!-- .element: class="fragment" -->
+							2. Make it work! 			<!-- .element: class="fragment" -->
+							3. Make it clean! 			<!-- .element: class="fragment" -->
+							4. Make it fast! 			<!-- .element: class="fragment" -->
+						- unittest is easier to use with Django and Flask than other libraries <!-- .element: class="fragment" -->
+						- Mocking can help you, but don't overuse it! <!-- .element: class="fragment" -->
+						- Know where to patch! 			<!-- .element: class="fragment" -->
+
+					</script>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
